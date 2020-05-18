@@ -96,7 +96,8 @@ def move_files(path_downloads):
                         shutil.move(src_path, dest_path)
                         file_moved = True
                     else:
-                        dest_path = rename_file(dest_path, str(extra))
+                        dest_path = rename_file(
+                            dest_path, ' ({})'.format(extra))
 
 
 # %%
