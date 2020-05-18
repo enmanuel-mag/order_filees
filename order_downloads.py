@@ -64,6 +64,19 @@ def load_paths():
     return dic_paths
 
 
+def rename_file(name_file, extra):
+
+    ind_extension = name_file.find('.')
+
+    if ind_extension != -1:
+        extension = name_file[ind_extension:]
+        name_file.replace(extension, extra+extension)
+    else:
+        name_file += extra
+
+    return name_file
+
+
 # %%
 def move_files(path_downloads):
     dic_paths = load_paths()
@@ -75,8 +88,15 @@ def move_files(path_downloads):
             dest_folder = dic_paths.get(type_file, -1)
             if dest_folder != -1:
                 dest_path = os.path.join(dest_folder, file)
-                if not os.path.exists(dest_path):
-                    shutil.move(src_path, dest_path)
+
+                file_moved = False
+                extra = 0
+                while not file_moved:
+                    if not os.path.exists(dest_path):
+                        shutil.move(src_path, dest_path)
+                        file_moved = True
+                    else:
+                        dest_path = rename_file(dest_path, str(extra))
 
 
 # %%
