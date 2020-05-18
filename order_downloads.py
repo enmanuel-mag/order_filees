@@ -70,11 +70,11 @@ def rename_file(name_file, extra):
 
     if ind_extension != -1:
         extension = name_file[ind_extension:]
-        name_file.replace(extension, extra+extension)
+        return name_file.replace(extension, extra+extension)
+
     else:
         name_file += extra
-
-    return name_file
+        return name_file
 
 
 # %%
@@ -90,7 +90,7 @@ def move_files(path_downloads):
                 dest_path = os.path.join(dest_folder, file)
 
                 file_moved = False
-                extra = 0
+                extra = 1
                 while not file_moved:
                     if not os.path.exists(dest_path):
                         shutil.move(src_path, dest_path)
